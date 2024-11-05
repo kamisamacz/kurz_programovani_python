@@ -1,6 +1,6 @@
 text = "hello"
 file = open("databaze.txt", "a")
-file.write(text)
+file.writelines(text)
 file.close()
 
 file = open("databaze.txt", "r")
