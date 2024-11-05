@@ -43,7 +43,8 @@ def display_users():
     else:
         print()
         print("zatím nikdo nebyl pridan")"""
-
+    print()
+    print("soupiska hracu se souboru")
     with open("databazehracu.txt", "r") as file:
         for index, line in enumerate(file, start=1):
             print(f"{index}: {line.strip()}")
