@@ -6,10 +6,10 @@ b = int(input())
 def nsd(a, b):
     if b == 0:
         print(f"Prubeh rekurze: {a}/{b} = {a}")
-        return a  # Koncová podmínka: když b je 0, NSD je a
+        return a  # end nsd
     else:
         print(f"Prubeh rekurze: {a}/{b} = {a % b}")
-        return nsd(b, a % b)  # Rekurzivní volání
+        return nsd(b, a % b)  # rekurze
 
 
 vysledek = nsd(a, b)
