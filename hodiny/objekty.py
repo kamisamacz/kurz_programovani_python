@@ -9,11 +9,19 @@ class people:
     def rande(self):
         self.stav = "zadany"
         print(f"{self.jmeno} sel na rande a je {self.stav}")
+        print()
+
+    def nerande(self):
+        self.stav = "po rozschodu"
+        print(f"{self.jmeno} mel s ni problem, a je {self.stav}")
+        print()
 
 patrik = people("Patrik",169, 98, 34, "nezadany")
 
-print
+print("Patrik:")
 print(patrik.vyska, " ",patrik.vaha, "",patrik.vek, "",patrik.stav)
 
 patrik.rande()
-
+print("Patrik:")
+print(patrik.vyska, " ",patrik.vaha, "",patrik.vek, "",patrik.stav)
+patrik.nerande()
