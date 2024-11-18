@@ -50,3 +50,4 @@ rozdil = abs(patrik.vek - magda.vek)
 print("veky rozdil je:",rozdil)
 if rozdil >10:
     print("najdi si uz sratsi vole")
+magda.patrik.rande()
