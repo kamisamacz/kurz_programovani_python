@@ -51,6 +51,7 @@ mixer = Mix("Smoothie xxl", "Philips", 800, 1.5)
 mlynek = Mlynek("Pomelu i nohu", "Diepotato", 1200, ["jemné", "hrubé", "střední"])
 
 
+
 kavovar.informace()
 kavovar.zapnout()
 kavovar.priprav_kavu()
