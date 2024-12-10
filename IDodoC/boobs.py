@@ -1,5 +1,5 @@
-size = int(input("Zadej velikost poprsí: "))
-x = f"{' ' * size}"
-print()
-print("Tady jsou ty prsa:")
-print(f"({x}Y{x})")
+for size in range(1, 6):  # Iterace od velikosti 1 do 5
+    x = ' ' * size  # Mezera podle velikosti
+    print(f"Velikost {size}:")
+    print(f"({x}.{x}Y{x}.{x})")
+    print()
