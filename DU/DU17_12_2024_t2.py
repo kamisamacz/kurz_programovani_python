@@ -51,3 +51,4 @@ if __name__ == "__main__":
     print("Ulozeno do Pickle:", pickle_data)
     new_car_from_pickle = Car.from_pickle(pickle_data)
     print("Nacteno z Pickle:", new_car_from_pickle)
+
