@@ -7,17 +7,9 @@ class Order:
     def add_pizza(self, pizza):
         """Přidá pizzu do objednávky a aktualizuje celkovou cenu."""
         self.pizzas.append(pizza)
-        self.total_price += pizza.price
-
-    def remove_pizza(self, pizza_name):
-        """Odstraní pizzu z objednávky podle jejího názvu."""
-        for pizza in self.pizzas:
-            if pizza.name == pizza_name:
-                self.pizzas.remove(pizza)
-                self.total_price -= pizza.price
-                break
+        self.total_price += pizza['price']  # Cena by měla být součástí objektu pizza.
 
     def __str__(self):
-        """Vrací textovou reprezentaci objednávky."""
-        pizzas_str = '\n'.join([str(pizza) for pizza in self.pizzas])
-        return f"Order for {self.customer_name}:\n{pizzas_str}\nTotal Price: {self.total_price} Kč"
+        """Vrátí textovou reprezentaci objednávky."""
+        pizzas_str = '\n'.join([f"- {pizza['name']} ({pizza['ingredients']})" for pizza in self.pizzas])
+        return f"Objednávka pro: {self.customer_name}\n{pizzas_str}\nCelková cena: {self.total_price} Kč"

@@ -1,12 +1,20 @@
-import subprocess
-import sys
+import multiprocessing
+import os
 
-def run_app(module_name):
-    """Spustí jednotlivou aplikaci."""
-    subprocess.Popen([sys.executable, module_name])
+def run_app(app_file):
+    """Spustí aplikaci jako samostatný proces."""
+    os.system(f'python {app_file}')
 
 if __name__ == "__main__":
-    # Spuštění jednotlivých aplikací jako samostatné procesy
-    run_app("admin_app.py")
-    run_app("user_app.py")
-    run_app("worker_app.py")
+    # Procesy pro jednotlivé aplikace
+    apps = ["admin_app.py", "user_app.py", "worker_app.py"]
+
+    processes = []
+    for app in apps:
+        p = multiprocessing.Process(target=run_app, args=(app,))
+        p.start()
+        processes.append(p)
+
+    # Čeká na dokončení všech procesů
+    for p in processes:
+        p.join()

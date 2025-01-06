@@ -1,26 +1,33 @@
 from kivy.uix.label import Label
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.screenmanager import Screen
+import order_storage
 
-class WorkerView(Screen):
+class WorkerView(BoxLayout):
     def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.layout = BoxLayout(orientation='vertical', spacing=10, padding=20)
+        super().__init__(orientation="vertical", spacing=20, padding=20, **kwargs)
+        print("Inicializuji WorkerView...")
 
-        # Nadpis
-        self.title = Label(
-            text="WORKER",
-            font_size=24,
-            bold=True,
-            size_hint=(1, 0.2)
+        self.title_label = Label(
+            text="[b]Seznam objednávek[/b]",
+            font_size=18,
+            markup=True,
+            color=(1, 1, 1, 1),
+            size_hint=(1, 0.1),
+            halign="center"
         )
-        self.layout.add_widget(self.title)
+        self.add_widget(self.title_label)
 
-        # Seznam objednávek
-        self.order_list = Label(
-            text="Order List: \n- Pizza 1 (Time left: 25 min)\n- Pizza 2 (Time left: 15 min)",
-            size_hint=(1, 0.8)
-        )
-        self.layout.add_widget(self.order_list)
+        self.orders_list = BoxLayout(orientation="vertical", size_hint=(1, 0.9))
+        self.add_widget(self.orders_list)
 
-        self.add_widget(self.layout)
+        self.load_orders()
+
+    def load_orders(self):
+        self.orders_list.clear_widgets()
+        orders = order_storage.load_orders()
+        for order in orders:
+            self.orders_list.add_widget(Label(
+                text=f"{order['pizza']} pro {order['name']}",
+                font_size=14,
+                color=(1, 1, 1, 1)
+            ))

@@ -1,8 +1,11 @@
-class WorkerController:
-    def __init__(self, model, view):
-        self.model = model
-        self.view = view
+from pizza_app.models.SharedData import SharedData
 
-    def update_order_list(self):
-        # Example logic for updating the list of orders
-        print("Order list updated.")
+class WorkerController:
+    def __init__(self, view):
+        self.view = view
+        self.update_tasks()
+
+    def update_tasks(self):
+        """Načte úkoly ze sdílených dat."""
+        tasks = SharedData.get_orders()
+        self.view.update_task_list(tasks)
