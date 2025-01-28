@@ -1,6 +1,29 @@
 import socket
 import threading
 import tkinter as tk
+import sqlite3
+from datetime import datetime
+
+# Vytvoření nebo připojení k databázi
+conn_db = sqlite3.connect("history.db", check_same_thread=False)
+cur = conn_db.cursor()
+
+# Vytvoření tabulky pro ukládání zpráv
+cur.execute("""
+CREATE TABLE IF NOT EXISTS messages (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    sender TEXT NOT NULL,
+    message TEXT NOT NULL,
+    timestamp TEXT NOT NULL
+);
+""")
+conn_db.commit()
+
+# Funkce pro uložení zprávy do databáze
+def save_message(sender, message):
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    cur.execute("INSERT INTO messages (sender, message, timestamp) VALUES (?, ?, ?)", (sender, message, timestamp))
+    conn_db.commit()
 
 # Funkce pro zobrazení zpráv na serveru
 def display_message(message):
@@ -21,6 +44,7 @@ def handle_client(client_socket, address):
             message = client_socket.recv(1024).decode('utf-8')
             if message:
                 display_message(f"{nickname}: {message}")
+                save_message(nickname, message)  # Uložení zprávy do databáze
                 broadcast(f"{nickname}: {message}", client_socket)
         except:
             display_message(f"{nickname} opustil chat.")
@@ -47,13 +71,21 @@ def accept_clients():
 
 # Inicializace GUI serveru
 root = tk.Tk()
+
+# Nastavení pozice a velikosti okna
+window_width = 450
+window_height = 470
+window_x = 10  # Nastavení X-pozice
+window_y = 550  # Nastavení Y-pozice
+root.geometry(f"{window_width}x{window_height}+{window_x}+{window_y}")
 root.title("Server Chat")
 
+# Vytvoření GUI prvků
 chat_frame = tk.Frame(root)
-chat_frame.pack()
+chat_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
 
-chat_box = tk.Text(chat_frame, state=tk.DISABLED, width=50, height=20)
-chat_box.pack(side=tk.LEFT)
+chat_box = tk.Text(chat_frame, state=tk.DISABLED, wrap=tk.WORD, font=("Arial", 12))
+chat_box.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
 scrollbar = tk.Scrollbar(chat_frame, command=chat_box.yview)
 scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
