@@ -20,9 +20,9 @@ if __name__ == "__main__":
     print("Spouštím zadané soubory...")
 
     # Seznam souborů k automatickému spuštění
-    files_to_run = ["server.py", "last_stat_app.py", "alltime.py", "chat3.py", "chat2.py", "chat1.py"]
+    files_to_run = ["server.py", "last_stat_app.py", "alltime.py", "chat2.py", "chat1.py", "chat3.py"]
 
     for file_name in files_to_run:
         print(f"Spouštím: {file_name}")
-        time.sleep(0.5)
+        time.sleep(1)
         run_file_async(file_name)
