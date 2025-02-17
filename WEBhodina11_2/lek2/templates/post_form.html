@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>GET FORM PAGE</h1>
+
+<form method="post">
+    {% csrf_token %}
+    <label for="name">Meno:</label>
+	<input type="password" id="name" name="name" required>
+	<button type="submit">Odoslať</button>
+</form>
+
+{% endblock %}
